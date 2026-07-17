@@ -14,9 +14,20 @@ import { CircularRingsComponent } from './circular-rings.component';
 import { BinaryClockComponent } from './binary-clock.component';
 import { WaveformComponent } from './waveform.component';
 import { SpiralComponent } from './spiral.component';
+import { FuturisticClockComponent } from './futuristic-clock.component';
+import { SolarLunarComponent } from './solar-lunar.component';
+import { MarioClockComponent } from './mario-clock.component';
+import { BarbieClockComponent } from './barbie-clock.component';
+import { MonsterHighClockComponent } from './monster-high-clock.component';
+import { HarryPotterClockComponent } from './harry-potter-clock.component';
+import { ArcReactorClockComponent } from './arc-reactor-clock.component';
+import { StarWarsClockComponent } from './star-wars-clock.component';
+import { PacmanClockComponent } from './pacman-clock.component';
+import { CookingMamaClockComponent } from './cooking-mama-clock.component';
 
 const VISUALS = [
-  'digital', 'analog', 'hourglass', 'day-progress', 'sun', 'pendulum', 'candle', 'rings', 'binary', 'waveform','spiral'
+  'digital', 'analog', 'hourglass', 'day-progress', 'sun', 'pendulum', 'candle', 'rings', 'binary', 'waveform', 'spiral',
+  'futuristic', 'solar-lunar', 'mario', 'barbie', 'monster-high', 'harry-potter', 'arc-reactor', 'star-wars', 'pacman', 'cooking-mama'
 ];
 
 @Component({
@@ -25,7 +36,10 @@ const VISUALS = [
   imports: [CommonModule, FormsModule, HeaderComponent,
     DigitalClockComponent, AnalogClockComponent, HourglassComponent, DayProgressComponent,
     SunPositionComponent, PendulumComponent, CandleComponent, CircularRingsComponent,
-    BinaryClockComponent, WaveformComponent, SpiralComponent
+    BinaryClockComponent, WaveformComponent, SpiralComponent,
+    FuturisticClockComponent, SolarLunarComponent, MarioClockComponent, BarbieClockComponent,
+    MonsterHighClockComponent, HarryPotterClockComponent, ArcReactorClockComponent,
+    StarWarsClockComponent, PacmanClockComponent, CookingMamaClockComponent
   ],
   template: `
     <app-header></app-header>
@@ -59,6 +73,16 @@ const VISUALS = [
           <app-binary-clock *ngSwitchCase="'binary'" [time]="time"></app-binary-clock>
           <app-waveform *ngSwitchCase="'waveform'" [time]="time"></app-waveform>
           <app-spiral *ngSwitchCase="'spiral'" [time]="time"></app-spiral>
+          <app-futuristic-clock *ngSwitchCase="'futuristic'"></app-futuristic-clock>
+          <app-solar-lunar *ngSwitchCase="'solar-lunar'"></app-solar-lunar>
+          <app-mario-clock *ngSwitchCase="'mario'"></app-mario-clock>
+          <app-barbie-clock *ngSwitchCase="'barbie'"></app-barbie-clock>
+          <app-monster-high-clock *ngSwitchCase="'monster-high'"></app-monster-high-clock>
+          <app-harry-potter-clock *ngSwitchCase="'harry-potter'"></app-harry-potter-clock>
+          <app-arc-reactor-clock *ngSwitchCase="'arc-reactor'"></app-arc-reactor-clock>
+          <app-star-wars-clock *ngSwitchCase="'star-wars'"></app-star-wars-clock>
+          <app-pacman-clock *ngSwitchCase="'pacman'"></app-pacman-clock>
+          <app-cooking-mama-clock *ngSwitchCase="'cooking-mama'"></app-cooking-mama-clock>
         </ng-container>
       </section>
     </main>
