@@ -1,0 +1,28 @@
+<div class="card">
+  <h2>Iniciar sesión</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="field">
+      <input type="email" formControlName="email" placeholder="Correo electrónico" />
+      <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid" class="error">
+        <div *ngIf="form.get('email')?.errors?.['required']">El email es obligatorio.</div>
+        <div *ngIf="form.get('email')?.errors?.['email']">Formato de email inválido.</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <input type="password" formControlName="password" placeholder="Contraseña" />
+      <div *ngIf="form.get('password')?.touched && form.get('password')?.invalid" class="error">
+        <div *ngIf="form.get('password')?.errors?.['required']">La contraseña es obligatoria.</div>
+        <div *ngIf="form.get('password')?.errors?.['minlength']">Mínimo 6 caracteres.</div>
+      </div>
+    </div>
+
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div class="actions">
+      <a (click)="goRegister()">Registrarse</a>
+      <button type="submit">Entrar</button>
+    </div>
+  </form>
+</div>
