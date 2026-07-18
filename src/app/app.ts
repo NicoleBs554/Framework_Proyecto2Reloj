@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { MainVisualizerComponent } from './shared/components/main-visualizer/main-visualizer.component';
@@ -10,6 +10,6 @@ import { MainVisualizerComponent } from './shared/components/main-visualizer/mai
   templateUrl: './app.html',
   styleUrls: ['./app.css']
 })
-export class App AppComponent{
+export class AppComponent {
   protected readonly title = signal('ProyectoAngular');
 }

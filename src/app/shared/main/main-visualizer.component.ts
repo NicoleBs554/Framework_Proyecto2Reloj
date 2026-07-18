@@ -1,4 +1,3 @@
-// shared/components/main-visualizer/main-visualizer.component.ts
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -6,7 +5,7 @@ import { Subscription } from 'rxjs';
 
 import { TimeService } from '../../../core/services/time.service';
 
-// Importar TODOS los visualizadores
+// Importa tus 11 visualizadores
 import { FuturisticClockComponent } from '../../../features/relojes/futuristic-clock/futuristic-clock.component';
 import { SolarLunarComponent } from '../../../features/relojes/solar-lunar/solar-lunar.component';
 import { MarioClockComponent } from '../../../features/relojes/mario-clock/mario-clock.component';
@@ -25,6 +24,7 @@ import { SpiralComponent } from '../../../features/relojes/spiral/spiral.compone
   imports: [
     CommonModule,
     FormsModule,
+    // Todos los componentes de relojes
     FuturisticClockComponent,
     SolarLunarComponent,
     MarioClockComponent,
@@ -42,9 +42,12 @@ import { SpiralComponent } from '../../../features/relojes/spiral/spiral.compone
 })
 export class MainVisualizerComponent implements OnInit, OnDestroy {
   selectedClock = 'futuristic';
-  customHour = new Date().getHours() + new Date().getMinutes() / 60;
   currentTime = new Date();
   private timeSubscription!: Subscription;
+
+  // Variables para el modo demo / slider
+  isDemoMode = false;
+  sliderValue = 43200; // 12:00 PM en segundos (por defecto)
 
   clockOptions = [
     { label: '⚡ Analógico Futurista', value: 'futuristic' },
@@ -63,6 +66,7 @@ export class MainVisualizerComponent implements OnInit, OnDestroy {
   constructor(private timeService: TimeService) {}
 
   ngOnInit() {
+    // Suscribirse al tiempo central
     this.timeSubscription = this.timeService.time$.subscribe((t: Date) => {
       this.currentTime = t;
     });
@@ -74,15 +78,33 @@ export class MainVisualizerComponent implements OnInit, OnDestroy {
     }
   }
 
-  onTimeChange() {
-    const date = new Date();
-    date.setHours(Math.floor(this.customHour));
-    date.setMinutes((this.customHour % 1) * 60);
-    date.setSeconds(0);
-    this.currentTime = date;
+  // Cambiar entre tiempo real y modo demo
+  toggleDemoMode() {
+    this.isDemoMode = !this.isDemoMode;
+    if (this.isDemoMode) {
+      // Pausar el tiempo real y usar el valor del slider
+      this.timeService.pause();
+      this.timeService.setSimulatedSeconds(this.sliderValue);
+    } else {
+      // Volver al tiempo real
+      this.timeService.resume();
+      this.timeService.setSimulatedSeconds(null);
+    }
   }
 
-  onClockChange() {
-    // El cambio ya se refleja por el ngModel
+  // Cuando el usuario mueve el slider
+  onSliderChange(value: number) {
+    this.sliderValue = value;
+    if (this.isDemoMode) {
+      this.timeService.setSimulatedSeconds(value);
+    }
+  }
+
+  // Formatear los segundos a HH:MM:SS para mostrar debajo del slider
+  formatTime(seconds: number): string {
+    const h = Math.floor(seconds / 3600);
+    const m = Math.floor((seconds % 3600) / 60);
+    const s = seconds % 60;
+    return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   }
 }

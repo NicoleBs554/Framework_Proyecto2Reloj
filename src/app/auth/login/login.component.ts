@@ -5,6 +5,8 @@ import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule, RouterModule], // 👈 Agrega esto
   templateUrl: './login.component.html',
   styles: [
     `:host{display:flex;align-items:center;justify-content:center;height:100vh;background:#f5f7fb}

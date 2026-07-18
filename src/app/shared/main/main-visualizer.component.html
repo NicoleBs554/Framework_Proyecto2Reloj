@@ -1,0 +1,57 @@
+<div class="dashboard-container">
+  
+  <!-- Panel de Control -->
+  <div class="controls-panel">
+    
+    <!-- Dropdown -->
+    <div class="control-group">
+      <label for="clock-select">Elige un visualizador:</label>
+      <select id="clock-select" [(ngModel)]="selectedClock" (change)="onClockChange()">
+        <option *ngFor="let option of clockOptions" [value]="option.value">
+          {{ option.label }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Botón Toggle -->
+    <div class="control-group">
+      <button class="btn-toggle" [class.active]="isDemoMode" (click)="toggleDemoMode()">
+        {{ isDemoMode ? '⏸️ Modo Demostración' : '🕒 Tiempo Real' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Slider (visible solo en modo demo) -->
+  <div class="slider-container" *ngIf="isDemoMode">
+    <input 
+      type="range" 
+      min="0" 
+      max="86399" 
+      [ngModel]="sliderValue" 
+      (ngModelChange)="onSliderChange($event)"
+    />
+    <div class="slider-label">
+      <span>00:00</span>
+      <span>Hora simulada: {{ formatTime(sliderValue) }}</span>
+      <span>23:59</span>
+    </div>
+  </div>
+
+  <!-- Área de visualización -->
+  <div class="visualizer-stage">
+    <div [ngSwitch]="selectedClock" class="clock-wrapper">
+      <app-futuristic-clock *ngSwitchCase="'futuristic'"></app-futuristic-clock>
+      <app-solar-lunar *ngSwitchCase="'solar'"></app-solar-lunar>
+      <app-mario-clock *ngSwitchCase="'mario'"></app-mario-clock>
+      <app-barbie-clock *ngSwitchCase="'barbie'"></app-barbie-clock>
+      <app-monster-high-clock *ngSwitchCase="'monster'"></app-monster-high-clock>
+      <app-harry-potter-clock *ngSwitchCase="'harry'"></app-harry-potter-clock>
+      <app-arc-reactor-clock *ngSwitchCase="'arc'"></app-arc-reactor-clock>
+      <app-star-wars-clock *ngSwitchCase="'starwars'"></app-star-wars-clock>
+      <app-pacman-clock *ngSwitchCase="'pacman'"></app-pacman-clock>
+      <app-cooking-mama-clock *ngSwitchCase="'cooking'"></app-cooking-mama-clock>
+      <app-spiral *ngSwitchCase="'spiral'"></app-spiral>
+    </div>
+  </div>
+
+</div>
